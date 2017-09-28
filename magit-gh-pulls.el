@@ -310,7 +310,7 @@ option, or inferred from remotes."
                     (insert (if (bound-and-true-p magit-gh-pulls-status-documentation)
                                 magit-gh-pulls-status-documentation
                               (format "Press `%s %s` to update the pull request list."
-                                      (substitute-command-keys "\\<magit-mode-map>\\[magit-gh-pulls-popup]")
+                                      (substitute-command-keys "\\<magit-gh-pulls-mode-map>\\[magit-gh-pulls-popup]")
                                       (char-to-string
                                        (car
                                         (seq-find
