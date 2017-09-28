@@ -265,6 +265,7 @@ option, or inferred from remotes."
                            (base-sha (oref (oref stub :base) :sha))
                            (base-ref (oref (oref stub :base) :ref))
                            (head-sha (oref (oref stub :head) :sha))
+                           (user-login (oref (oref stub :user) :login))
                            ;; branch has been deleted in the meantime...
                            (invalid (equal (oref (oref stub :head) :ref) head-sha))
                            (have-commits
@@ -275,7 +276,8 @@ option, or inferred from remotes."
                                          (magit-git-string "branch" branch
                                                            (format "--contains=%s" head-sha))))
                            (heading
-                            (format "[%s@%s] %s\n"
+                            (format "[@%s %s@%s] %s\n"
+                                    user-login
                                     (propertize (number-to-string id)
                                                 'face 'magit-tag)
                                     (if (string= base-ref branch)
