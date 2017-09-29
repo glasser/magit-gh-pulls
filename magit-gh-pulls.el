@@ -554,7 +554,8 @@ option, or inferred from remotes."
        (lambda (title body)
          (let ((api (magit-gh-pulls-get-api))
                (req (magit-gh-pulls-build-req user proj base-branch head-branch title body)))
-           (magit-gh-pulls-submit-pull-request api user proj req)))))))
+           (magit-gh-pulls-submit-pull-request api user proj req)
+           (magit-gh-pulls-reload)))))))
 
 (defun magit-gh-pulls-reload ()
   (interactive)
