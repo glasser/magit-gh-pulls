@@ -369,6 +369,20 @@ option, or inferred from remotes."
     (invalid-pull
      (error "This pull request refers to invalid reference"))))
 
+(defun magit-gh-pulls-checkout-branch ()
+  (interactive)
+  (magit-section-case
+    (pull
+     (let* ((req (magit-gh-section-req-data))
+            (branch (oref (oref req :head) :ref))
+            (inhibit-magit-refresh t))
+       (magit-checkout branch))
+     (magit-refresh))
+    (unfetched-pull
+     (error "Please fetch pull request commits first"))
+    (invalid-pull
+     (error "This pull request refers to invalid reference"))))
+
 (defun magit-gh-pulls-merge-pull-request ()
   (interactive)
   (magit-section-case
@@ -610,7 +624,8 @@ option, or inferred from remotes."
   :actions  '((?g "Reload" magit-gh-pulls-reload)
               (?f "Fetch" magit-gh-pulls-fetch-commits)
               (?d "Diff" magit-gh-pulls-diff-pull-request)
-              (?b "Make branch" magit-gh-pulls-create-branch)
+              (?b "Checkout branch" magit-gh-pulls-checkout-branch)
+              (?B "Make branch" magit-gh-pulls-create-branch)
               (?m "Merge"    magit-gh-pulls-merge-pull-request)
               (?c "Create new PR" magit-gh-pulls-create-pull-request)
               (?o "Open in browser" magit-gh-pulls-open-in-browser))
